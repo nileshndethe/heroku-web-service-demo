@@ -5,6 +5,7 @@
         <title></title>
     </head>
     <body>
+	<h2>This is php soap based web service</h2>
         <?php
         // put your code here
         ?>
