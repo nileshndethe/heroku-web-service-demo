@@ -4,7 +4,7 @@ require_once ('lib/nusoap.php');
 //Give it value at parameter  
 $param = array( 'your_name' => 'Monotosh Roy');     
 //Create object that referer a web services  
-$client = new soapclient('http://localhost/WebServiceSOAP/server.php');      
+$client = new soapclient('https://ndtestapp29june2015.herokuapp.com/server.php');      
 //Call a function at server and send parameters too  
 $response = $client->call('get_message',$param);      
  //Process result  
