@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>File Uploader</title>
+<style type="text/css">
+body {
+  font-family: Sans-Serif;
+}
+</style>
+</head>
+<body>
+  <h3>
+    Select a file to upload as a new Chatter File.
+  </h3>
+  <input type="file" id="file" onchange="upload()"/>
+  <p id="message"></p>
+  <script src="https://code.jquery.com/jquery-1.11.2.min.js"></script>
+  <script src="https://ndcorsdemo.herokuapp.com/forcetk.js"></script>
+  <script>
+    var client = new forcetk.Client();
+
+    // Bypass the proxy - you must whitelist your server in Setup | Security Controls | CORS
+    client.proxyUrl = null;
+
+    client.setSessionToken('00D90000000uKUf!AR0AQPpJYt88nlaogbifcfO4nNlaih.qFZpfc_2hTJF4JHwPogGOmTgcIDNIdY1K2Cty4Zf0dI3y6jZiZNwg_o6r_EdyNAAk', 'v33.0', 'https://ap1.salesforce.com');
+
+    function upload() {
+        var file = $("#file")[0].files[0];
+        client.createBlob('ContentVersion', {
+            Origin: 'H', // 'H' for Chatter File, 'C' for Content Document
+            PathOnClient: file.name
+        }, file.name, 'VersionData', file, function(response){
+            console.log(response);
+            $("#message").html("Chatter File created: <a target=\"_blank\" href=\"https://ap1.salesforce.com/" + response.id + "\">Take a look!</a>");
+        }, function(request, status, response){
+            $("#message").html("Error: " + status);
+        });
+    }
+  </script>
+</body>
+</html>
